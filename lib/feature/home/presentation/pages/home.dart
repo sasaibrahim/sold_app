@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../config/routes/routes.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_images.dart';
 import '../../data/data_sources/home_data_sourse.dart';
@@ -48,14 +49,15 @@ class HomeScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Badge(
-                    // alignment: Alignment.topCenter,
-                    label: Text(''),
+                    alignment: AlignmentDirectional.topCenter,
+                    label:
+                        Text(HomeCubit.get(context).numOfItemCart.toString()),
                     //  HomeCubit.get(context).numOfItemsInCart.toString()),
                     child: IconButton(
                         onPressed: () {
-                          //  Navigator.pushNamed(context, Routes.cart);
+                          Navigator.pushNamed(context, Routes.cartScreen);
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.shopping_cart,
                           size: 30,
                           color: AppColors.primary,

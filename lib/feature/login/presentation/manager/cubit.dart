@@ -21,8 +21,7 @@ class LoginCubit extends Cubit<LoginStates> {
     emit(LoginLoadingStates());
     LoginDomainRepo loginDomainRepo = LoginDataRepo(sources);
     LoginUseCase loginUseCase = LoginUseCase(loginDomainRepo);
-    var result =
-        await loginUseCase.call(emailController.text, passwordController.text);
+    var result = await loginUseCase.call("hesham5555@gmail.com", "Ahmed@123");
     result.fold((l) {
       emit(LoginErrorStates(l));
     }, (r) {

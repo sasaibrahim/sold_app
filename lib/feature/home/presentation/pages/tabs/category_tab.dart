@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../config/routes/routes.dart';
 import '../../manager/cubit.dart';
 import '../../manager/states.dart';
+import '../../widgets/product_item.dart';
 
 class CategoryTab extends StatelessWidget {
   const CategoryTab({super.key});

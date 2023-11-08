@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:sold_app/core/utils/cach_helper.dart';
+import 'package:sold_app/feature/home/data/models/CartReponse.dart';
 import 'package:sold_app/feature/home/data/models/CategoryOrBrandModel.dart';
 import 'package:sold_app/feature/home/data/models/ProductModel.dart';
 
@@ -13,6 +15,8 @@ abstract class HomeDataSourse {
   Future<Either<Failures, CategoryOrBrandModel>> getCategories();
 
   Future<Either<Failures, ProductModel>> getProducts();
+
+  Future<Either<Failures, CartResponse>> addToCart(String productId);
 }
 
 class HomeRemoteDto implements HomeDataSourse {
@@ -56,6 +60,21 @@ class HomeRemoteDto implements HomeDataSourse {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failures, CartResponse>> addToCart(String productId) async {
+    var userToken = CacheHelper.getData("User");
+    try {
+      var response = await dio.get(
+          "${Constants.baseApiUrl}${EndPoints.addToCart}",
+          options: Options(headers: {"token": userToken}),
+          data: {"productId": productId});
+      CartResponse cartResponse = CartResponse.fromJson(response.data);
+      return Right(cartResponse);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }
 
 class HomeLocalDto implements HomeDataSourse {
@@ -74,6 +93,12 @@ class HomeLocalDto implements HomeDataSourse {
   @override
   Future<Either<Failures, ProductModel>> getProducts() {
     // TODO: implement getProducts
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failures, CartResponse>> addToCart(String productId) {
+    // TODO: implement addToCart
     throw UnimplementedError();
   }
 }

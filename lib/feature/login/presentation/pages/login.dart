@@ -10,8 +10,8 @@ import '../../../../config/routes/routes.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_images.dart';
 import '../../../../core/utils/app_strings.dart';
+import '../../../../core/utils/cach_helper.dart';
 import '../../../../core/utils/component.dart';
-
 //import '../../../../core/utils/components.dart';
 import '../../../../core/utils/text_styles.dart';
 import '../manager/cubit.dart';
@@ -27,6 +27,7 @@ class LoginScreen extends StatelessWidget {
         Navigator.pop(context);
         print(json.encode(state.loginEntity.token));
         // CacheHelper.saveData(key: "User", value: state.loginEntity.token);
+        CacheHelper.saveData(key: "User", value: state.loginEntity.token);
         Navigator.pushNamedAndRemoveUntil(
             context,
             Routes.home,

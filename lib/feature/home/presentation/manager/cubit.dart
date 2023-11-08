@@ -13,6 +13,7 @@ import 'package:sold_app/feature/home/presentation/pages/tabs/category_tab.dart'
 import 'package:sold_app/feature/home/presentation/pages/tabs/home_tab.dart';
 import 'package:sold_app/feature/home/presentation/pages/tabs/profile_tab.dart';
 
+import '../../domain/entities/ProductEntity.dart';
 import '../pages/tabs/fav_tab.dart';
 
 class HomeCubit extends Cubit<HomeStates> {
@@ -25,9 +26,16 @@ class HomeCubit extends Cubit<HomeStates> {
 
   static HomeCubit get(context) => BlocProvider.of(context);
   int bottomNavIndex = 0;
-  List<Widget> tabs = [HomeTab(), CategoryTab(), FavTab(), ProfileTab()];
+  int numOfItemCart = 0;
+  List<Widget> tabs = [
+    const HomeTab(),
+    const CategoryTab(),
+    const FavTab(),
+    const ProfileTab()
+  ];
   List<DataEntity> categories = [];
   List<DataEntity> brands = [];
+  List<ProductDataEntity> products = [];
 
   List<String> sliders = [
     AppImages.slider1,
@@ -48,6 +56,8 @@ class HomeCubit extends Cubit<HomeStates> {
     result.fold((l) {
       emit(HomeGetProductsErrorState(l));
     }, (r) {
+      products = r.data ?? [];
+      print(products.length.toString());
       emit(HomeGetProductsSuccessState(r));
     });
   }
